@@ -6,7 +6,7 @@ import Layout from "@/Layout"
 export default function Main({children} : any) {
  return (
   <>
-    <Layout>
+    <Layout metaTitle="Home" metaDescription={"Ini adalah bagian Home"}>
         <p className="w-full min-h-[100vh]">Home</p>
     </Layout>
   </>
