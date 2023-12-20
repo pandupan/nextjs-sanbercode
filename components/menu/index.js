@@ -10,6 +10,12 @@ export default function Menu() {
         <Link href="/profile" className="bg-sky-800 rounded-xl px-5 py-2">
           Profile
         </Link>
+        <Link href="/users" className="bg-sky-800 rounded-xl px-5 py-2">
+          User
+        </Link>
+        <Link href="/users/detail" className="bg-sky-800 rounded-xl px-5 py-2">
+          User Detail
+        </Link>
       </div>
     </>
   );
