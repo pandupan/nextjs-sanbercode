@@ -16,6 +16,9 @@ export default function Menu() {
         <Link href="/users/detail" className="bg-sky-800 rounded-xl px-5 py-2">
           User Detail
         </Link>
+        <Link href="/notes" className="bg-sky-800 rounded-xl px-5 py-2">
+          Notes
+        </Link>
       </div>
     </>
   );
