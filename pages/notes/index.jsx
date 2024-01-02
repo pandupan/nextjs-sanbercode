@@ -12,6 +12,21 @@ export default function Notes() {
 
   const [notes, setNotes] = useState()
 
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(
+       `https://paace-f178cafcae7b.nevacloud.io/api/notes/delete/${id}`,
+       {
+        method: "DELETE",
+       }
+      );
+      const result = await response.json();
+      if (result?.success) {
+       router.reload()
+      }
+     } catch (error) {}
+  }
+
   useEffect(()=>{
     async function fecthingData(){
       const res = await fetch('https://paace-f178cafcae7b.nevacloud.io/api/notes')
@@ -55,10 +70,10 @@ export default function Notes() {
                       },
                     }}
                   >
-                    <Button flex='1' colorScheme="green" >
+                    <Button flex='1' colorScheme="green" onClick={() => router.push(`/notes/edit/${items.id}`)}>
                       Edit
                     </Button>
-                    <Button flex='1' colorScheme="red" >
+                    <Button flex='1' colorScheme="red" onClick={() => handleDelete(items.id)} >
                       Delete
                     </Button>
                   </CardFooter>
