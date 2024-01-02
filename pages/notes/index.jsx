@@ -6,12 +6,15 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import { useQueries } from "../../hooks/useQueries";
 import { Spinner } from '@chakra-ui/react'
+import fetcher from "../../utils/fetcher"
+import useSWR from "swr";
 
 const LayoutComponent = dynamic(() => import("@/Layout"));
 
 export default function Notes() {
+  const { data, isError, isLoading } = useSWR('https://paace-f178cafcae7b.nevacloud.io/api/notes', fetcher, {revalidateOnFocus: true})
 
-  const {data, isLoading, isError} = useQueries({prefixUrl : 'https://paace-f178cafcae7b.nevacloud.io/api/notes'})
+  // const {data, isLoading, isError} = useQueries({prefixUrl : 'https://paace-f178cafcae7b.nevacloud.io/api/notes'})
   console.log('Data useQueries',data)
   console.log('isLoading',isLoading)
   console.log('isError',isError)
