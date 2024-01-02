@@ -4,10 +4,17 @@ import Link from "next/link";
 import { Flex, Grid, Card, CardBody, CardFooter, CardHeader, GridItem, Heading, Text, Button, Box } from "@chakra-ui/react";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { useQueries } from "../../hooks/useQueries";
+import { Spinner } from '@chakra-ui/react'
 
 const LayoutComponent = dynamic(() => import("@/Layout"));
 
 export default function Notes() {
+
+  const {data, isLoading, isError} = useQueries({prefixUrl : 'https://paace-f178cafcae7b.nevacloud.io/api/notes'})
+  console.log('Data useQueries',data)
+  console.log('isLoading',isLoading)
+  console.log('isError',isError)
   const router = useRouter()
 
   const [notes, setNotes] = useState()
@@ -41,7 +48,20 @@ export default function Notes() {
 
   // console.log('notes =>', notes)
 
-  // console.log(notes.data)
+  if (isLoading){
+    return (
+      <Flex alignItems="center" justifyContent="center" width="full" height="100vh">
+        <Spinner
+          thickness='4px'
+          speed='0.65s'
+          emptyColor='gray.200'
+          color='blue.500'
+          size='xl'
+        />
+      </Flex>
+    )
+  }
+
 
  return (
   <>
@@ -52,7 +72,7 @@ export default function Notes() {
         </Flex>
         <Flex>
           <Grid templateColumns='repeat(3, 1fr)' gap={5}>
-            {notes?.data?.map((items,id) => (
+            {data?.data?.map((items,id) => (
               <GridItem key={id}>
                 <Card>
                   <CardHeader>

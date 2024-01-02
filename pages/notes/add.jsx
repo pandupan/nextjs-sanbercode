@@ -4,10 +4,12 @@ import Link from "next/link";
 import { Flex, Grid, Card, CardBody, CardFooter, CardHeader, GridItem, Heading, Text, Button, Box, Textarea, Input } from "@chakra-ui/react";
 import { useState } from "react";
 import { useRouter } from "next/router";
+import { useMutation } from "../../hooks/useMutation";
 
 const LayoutComponent = dynamic(() => import("@/Layout"));
 
 export default function Notes() {
+  const { mutate } = useMutation()
   const router = useRouter()
 
   const [notes, setNotes] = useState({
@@ -17,22 +19,11 @@ export default function Notes() {
   )
 
   const HandleSubmit = async () => {
-    try {
-     const response = await fetch(
-      "https://paace-f178cafcae7b.nevacloud.io/api/notes",
-      {
-       method: "POST",
-       headers: {
-        "Content-Type": "application/json",
-       },
-       body: JSON.stringify(notes),
-      }
-     );
-     const result = await response.json();
-     if (result?.success) {
-      router.push("/notes");
-     }
-    } catch (error) {}
+    const response =await mutate({
+      url : "https://paace-f178cafcae7b.nevacloud.io/api/notes",
+      payload : notes
+    })
+    console.log("response =>", response)
    };
 
 
@@ -66,7 +57,6 @@ export default function Notes() {
      </GridItem>
     </Grid>
    </Card>
-
     </LayoutComponent>
   </>
  );
