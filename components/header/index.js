@@ -1,10 +1,10 @@
 import { withAuth } from "../with-auth";  
-import Menu from "../menu";
+import ListMenu from "../menu";
 
 function Header() {
   return (
   <div className="bg-sky-300 w-full text-xl">
-    <Menu/>
+    <ListMenu/>
   </div>
   );
 }
