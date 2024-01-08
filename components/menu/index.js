@@ -15,16 +15,13 @@ import { useQueries } from "@/hooks/useQueries"
 import Cookies from "js-cookie"
 import  { useMutation } from "@/hooks/useMutation"
 import { useRouter } from "next/router";
+import { useContext } from "react";
+import { UserContext } from "@/context/userContext";
 
 export default function ListMenu() {
   const router = useRouter()
   const {mutate} = useMutation()
-  const {data} = useQueries({
-    prefixUrl:"https://paace-f178cafcae7b.nevacloud.io/api/user/me",
-    headers : {
-      'Authorization' : `Bearer ${Cookies.get('user_token')}`
-    }
-  })
+  const userData = useContext(UserContext)
 
   const handleLogout = async () => {
     const response = await mutate({
@@ -46,7 +43,6 @@ export default function ListMenu() {
 
   }
 
-  console.log("data =>", data)
   
 
   return (
@@ -69,8 +65,8 @@ export default function ListMenu() {
         </Link>
         <Menu>
           <MenuButton as={Button} rightIcon={<FaChevronDown />}>
-            {data?.data?.name}
-            {console.log(data)}
+            {userData?.name}
+            {console.log(userData)}
           </MenuButton>
           <MenuList>
             <MenuItem onClick={()=> handleLogout()}><span className="text-black">Logout</span></MenuItem>
